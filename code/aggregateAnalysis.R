@@ -46,11 +46,11 @@ write.table(cc, row.names = TRUE, col.names = TRUE, sep = "\t", quote = FALSE,
 ## Carve out the RNA for the heme paper
 rdf <- merge(cc, g10X, by.x = "row.names", by.y = "V1")
 rdf <- rdf[,-which(names(rdf) %in% c("Row.names", "GMP", "UNK"))]
-rdf <- rdf[,c("V2", c("HSC", "MPP", "LMPP", "CLP", "GMP1", "GMP2", "GMP3", "CMP", "MEP",
+rdf2 <- rdf[,c("V2", c("HSC", "MPP", "LMPP", "CLP", "GMP1", "GMP2", "GMP3", "CMP", "MEP",
                        "NKcell", "CD4Tcell", "CD8Tcell", "Bcell", "pDC", "Mono", "Ery"))]
-names(rdf) <- c("Gene", c("HSC", "MPP", "LMPP", "CLP", "GMP1", "GMP2", "GMP3", "CMP", "MEP",
-                       "NK", "CD4", "CD8", "Bcell", "pDC", "Mono", "Ery"))
-write.table(rdf, file = "../output/16populations_RNAcounts.txt", row.names = FALSE, col.names = TRUE, sep = "\t", quote = FALSE)
+colnames(rdf2) <- c("Genes","HSC", "MPP", "LMPP", "CLP", "GMP1", "GMP2", "GMP3", "CMP", "MEP",
+                       "NK", "CD4", "CD8", "B", "pDC", "Mono", "Ery")
+write.table(rdf2, file = "../output/16populations_RNAcounts.txt", row.names = FALSE, col.names = TRUE, sep = "\t", quote = FALSE)
 
 # Import GTF; make data frame of spanning gene coordinates 
 gtf <-rtracklayer::import("../annotation/hg19_10X.gtf.gz")
